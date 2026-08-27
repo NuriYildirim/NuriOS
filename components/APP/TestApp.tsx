@@ -23,7 +23,7 @@ export default function TestApp() {
   return (
     <>
       <App x={100} y={100} title={APPNAME} onPress={openOnPress} icon="/globe.svg"/>
-      <Frame x={0} y={0} title={TITLE} open={open} closeOnPress={closeOnPress}>
+      <Frame x={0} y={0} title={TITLE} path='' open={open} closeOnPress={closeOnPress}>
         <h1>HALLOOOOOO</h1>
       </Frame>
     </>

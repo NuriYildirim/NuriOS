@@ -1,8 +1,21 @@
 "use client"
 import { motion, useMotionValue } from 'motion/react'
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
-export default function Frame({x, y, title, open, closeOnPress, children}: {x: number, y: number, title: string, open: boolean, closeOnPress: () => void, children: ReactNode}) {
+interface Frame {
+  x: number,
+  y: number,
+  title: string,
+  path: string,
+  open: boolean,
+  closeOnPress: () => void,
+  children: ReactNode
+}
+
+export default function Frame({x, y, title, path, open, closeOnPress, children}: Frame) {
+
+  const router = useRouter();
 
   const dragging = useRef(false)
   const dragOffset = useRef({ x: 0, y: 0 })
@@ -10,14 +23,8 @@ export default function Frame({x, y, title, open, closeOnPress, children}: {x: n
   const [width, setWidth] = useState(1000)
   const [height, setHeight] = useState(width*9/16)
 
-  const [max, setMax] = useState(false)
-
   const posX = useMotionValue(x)
   const posY = useMotionValue(y)
-
-  useEffect(() => {
-    setMax(false);
-  }, [open])
 
   const frameRef = useRef<HTMLDivElement>(null)
 
@@ -55,22 +62,18 @@ export default function Frame({x, y, title, open, closeOnPress, children}: {x: n
   }
 
   function maximize() {
-    posX.set(0)
-    posY.set(0)
-    setMax(true)
+    router.push('/home/'+path)
   }
 
   return (
     <motion.div ref={frameRef} className='absolute aspect-video flex top-0 left-0 z-50'
       style={{ x: posX, y: posY, width: width, height: height}}
       initial={{opacity: 0, display: "none"}}
-      animate={{opacity: open ? 1:0, display: open ? "block":"none", width: max ? "100%":"auto"}}
+      animate={{opacity: open ? 1:0, display: open ? "block":"none"}}
       >
       <motion.div className="w-full h-full relative liquid"
-        animate={{borderRadius: max ? "0px":"16px"}}
         >
         <motion.div className="absolute top-0 left-0 w-full h-8 flex flex-row liquid rounded-b-none z-50"
-        animate={{borderTopRightRadius: max ? "0px":"16px", borderTopLeftRadius: max ? "0px":"16px"}}
         >
           <div className='flex-1 flex items-center px-2'
             onDoubleClick={maximize}

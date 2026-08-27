@@ -31,7 +31,7 @@ export default function CVApp() {
   return (
     <>
       <App x={X} y={Y} title={APPNAME} onPress={openOnPress} icon="/nuri_peace.png"/>
-      <Frame x={0} y={0} title={TITLE} open={open} closeOnPress={closeOnPress}>
+      <Frame x={0} y={0} title={TITLE} path='cv' open={open} closeOnPress={closeOnPress}>
         <motion.div className='w-full h-[200vh] flex bg-background p-8'>
           <section className='flex flex-col'>
             <div className='flex flex-row flex-1 h-full'>
