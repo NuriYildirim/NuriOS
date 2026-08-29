@@ -10,7 +10,6 @@ export default function Home() {
   <Desktop>
     <Wallpaper/>
     <Dock/>
-    <TestApp/>
     <CVApp/>
     <NuriGPTApp/>
   </Desktop>
