@@ -4,8 +4,9 @@ import App from '../OS/App'
 import Frame from '../OS/Frame';
 
 const TITLE = "Nuri-GPT"
-const X = 500, Y = 500;
+const X = 150, Y = 50;
 const APPNAME = "Nuri-GPT"
+const PATH="nuri-gpt"
 
 
 export default function NuriGPTApp() {
@@ -22,8 +23,8 @@ export default function NuriGPTApp() {
 
   return (
     <>
-      <App x={X} y={Y} title={APPNAME} onPress={openOnPress} icon="/globe.svg"/>
-      <Frame x={0} y={0} title={TITLE} open={open} closeOnPress={closeOnPress}>
+      <App x={X} y={Y} title={APPNAME} path={'int'+PATH} onPress={openOnPress} icon="/globe.svg" order={2}/>
+      <Frame path='' x={0} y={0} title={TITLE} open={open} closeOnPress={closeOnPress}>
         <h1>HALLOOOOOO</h1>
       </Frame>
     </>

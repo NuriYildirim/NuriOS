@@ -39,7 +39,41 @@ body {
     0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 .cursor-hidden,
 .cursor-hidden * {
   cursor: none;
+}
+
+#parallax {
+  overflow: hidden;
+  letter-spacing: -2px;
+  line-height: 0.8;
+  margin: 0;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#parallax .scroller {
+  font-weight: 600;
+  text-transform: uppercase;
+  display: flex;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#parallax span {
+  display: block;
+  margin-right: 30px;
 }

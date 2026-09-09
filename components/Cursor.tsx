@@ -69,7 +69,7 @@ const Cursor = () => {
   }, [isHome]);
 
   return (
-    <div className={`max-lg:hidden z-10 ${isHome ? '' : 'opacity-0 pointer-events-none'}`}>
+    <div className={`max-md:hidden z-10 ${isHome ? '' : 'opacity-0 pointer-events-none'}`}>
       <div
         ref={cursorDefaultRef}
         className="cursorDefault w-10 h-10 items-end justify-end flex fixed z-50 pointer-events-none"

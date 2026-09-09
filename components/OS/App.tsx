@@ -1,9 +1,13 @@
 "use client"
 import { motion, useMotionValue } from "motion/react"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
-export default function App({ x, y, title, onPress, icon}: { x: number, y: number, title: string, onPress: () => void, icon: string}) {
+const MOBILE_WIDTH = 768;
+const SIZE = 96
+
+export default function App({ x, y, title, onPress, icon, path, order}: { x: number, y: number, title: string, onPress: () => void, icon: string, path:string, order:number}) {
   const dragging = useRef(false)
   const dragOffset = useRef({ x: 0, y: 0 })
 
@@ -12,16 +16,42 @@ export default function App({ x, y, title, onPress, icon}: { x: number, y: numbe
   const posX = useMotionValue(x)
   const posY = useMotionValue(y)
 
+  const router = useRouter();
+
   const appRef = useRef<HTMLDivElement>(null)
+
+  const [width, setWidth] = useState(0);
+
+  const isMobile = width <= MOBILE_WIDTH;
+
+  const MOBILE_COLUMNS = 3;
+  const MOBILE_ROW_HEIGHT = 100;
+
+  const column = order % MOBILE_COLUMNS;
+  const row = Math.floor(order / MOBILE_COLUMNS);
+
+  const mobileY = row * MOBILE_ROW_HEIGHT + 32
+
+  useEffect(() => {
+    const updateWidth = () => setWidth(window.innerWidth);
+
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
 
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
     setSelected(true)
-    dragging.current = true
-    dragOffset.current = {
-      x: e.clientX - posX.get(),
-      y: e.clientY - posY.get(),
+    if(!isMobile) {
+      dragging.current = true
+      dragOffset.current = {
+        x: e.clientX - posX.get(),
+        y: e.clientY - posY.get(),
+      }
+      e.currentTarget.setPointerCapture(e.pointerId)
     }
-    e.currentTarget.setPointerCapture(e.pointerId)
   }
 
   function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
@@ -46,16 +76,33 @@ export default function App({ x, y, title, onPress, icon}: { x: number, y: numbe
   }
 
   function handlePointerUp() {
-    dragging.current = false
     setSelected(false)
+    if(!isMobile)
+      dragging.current = false
   }
 
   return (
-      <motion.div
-        ref={appRef}
-        className='absolute top-0 left-0 m-2 flex flex-col items-center'
-        style={{ x: posX, y: posY, opacity: selected ? 0.5 : 1 }}
-        onDoubleClick={onPress}
+    <motion.div
+      ref={appRef}
+      className="absolute top-0 left-0 flex w-24 flex-col items-center"
+      style={{
+        left: isMobile
+          ? `calc(${column} * (100% / 3) + (100% / 3 - 96px) / 2)`
+          : 0,
+        x: isMobile ? 0 : posX,
+        y: isMobile ? mobileY : posY,
+        opacity: selected ? 0.5 : 1,
+      }}
+        initial={{scale:1}}
+        whileHover={{scale:1.1}}
+        onClick={() => {
+          if(isMobile) {
+            path.slice(0, 3) === 'int'
+              ? router.push('home/'+path.slice(3))
+              : router.replace(path.slice(3))
+          }
+        }}  
+        onDoubleClick={() => !isMobile ? onPress:{}}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -66,10 +113,10 @@ export default function App({ x, y, title, onPress, icon}: { x: number, y: numbe
             fill
             src={icon}
             draggable="false"
-            className="p-2 object-contain"
+            className="p-1 object-contain"
           />
         </div>
-        <h2 className="text-white">{title}</h2>
+        <h2 className="text-white line-clamp-1 text-center">{title}</h2>
       </motion.div>
   )
 }

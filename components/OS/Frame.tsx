@@ -92,7 +92,9 @@ export default function Frame({x, y, title, path, open, closeOnPress, children}:
             </button>
           </div>
         </motion.div>
-        <div className='w-full h-full mt-8 px-2 overflow-y-scroll'>
+        <div className='w-full h-full mt-8 px-2 overflow-y-scroll overflow-x-hidden no-scrollbar'
+          style={{width: width, height: height}}
+        >
           {children}
         </div>
       </motion.div>

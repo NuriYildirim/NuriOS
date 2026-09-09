@@ -6,7 +6,7 @@ export default function CVLayout({
   children: React.ReactNode
 }) {
   return (
-  <section>
+  <section className="">
     <FullscreenBar title={"CV"}/>
     <div className="mt-6">
         {children}
