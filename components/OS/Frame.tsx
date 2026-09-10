@@ -1,5 +1,5 @@
 "use client"
-import { motion, useMotionValue } from 'motion/react'
+import { motion, useMotionValue, useScroll, useTransform } from 'motion/react'
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -66,7 +66,7 @@ export default function Frame({x, y, title, path, open, closeOnPress, children}:
   }
 
   return (
-    <motion.div ref={frameRef} className='absolute aspect-video flex top-0 left-0 z-50'
+    <motion.div ref={frameRef} className='absolute aspect-video flex top-0 left-0 z-20'
       style={{ x: posX, y: posY, width: width, height: height}}
       initial={{opacity: 0, display: "none"}}
       animate={{opacity: open ? 1:0, display: open ? "block":"none"}}
@@ -92,8 +92,9 @@ export default function Frame({x, y, title, path, open, closeOnPress, children}:
             </button>
           </div>
         </motion.div>
-        <div className='w-full h-full mt-8 px-2 overflow-y-scroll overflow-x-hidden no-scrollbar'
-          style={{width: width, height: height}}
+        <div className='w-full mt-8 px-2 overflow-y-scroll overflow-x-hidden h-[200vh] '
+        data-lenis-prevent
+          style={{width: width, height: height, overscrollBehavior: 'contain'}}
         >
           {children}
         </div>

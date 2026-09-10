@@ -102,7 +102,7 @@ export default function App({ x, y, title, onPress, icon, path, order}: { x: num
               : router.replace(path.slice(3))
           }
         }}  
-        onDoubleClick={() => !isMobile ? onPress:{}}
+        onDoubleClick={onPress}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
