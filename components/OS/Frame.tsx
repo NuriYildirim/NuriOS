@@ -92,7 +92,7 @@ export default function Frame({x, y, title, path, open, closeOnPress, children}:
             </button>
           </div>
         </motion.div>
-        <div className='w-full mt-8 px-2 overflow-y-scroll overflow-x-hidden h-[200vh] '
+        <div className='w-full mt-8 px-2 overflow-y-scroll overflow-x-hidden no-scrollbar'
         data-lenis-prevent
           style={{width: width, height: height, overscrollBehavior: 'contain'}}
         >

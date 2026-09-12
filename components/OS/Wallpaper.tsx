@@ -5,7 +5,7 @@ export default function Wallpaper() {
   return (
     <div className="absolute inset-0">
         <Image
-          src="/wallpaper-4.jpg"
+          src="/wallpaper-dark.jpg"
           alt="Wallpaper"
           fill
           loading="eager"
