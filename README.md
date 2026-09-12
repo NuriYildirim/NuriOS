@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NuriOS
 
-## Getting Started
+Portfolio-Website von Nuri Yildirim — gestaltet als interaktives, Desktop-OS-artiges Erlebnis im Browser. Statt klassischer Scroll-Seiten öffnet man einzelne "Apps" (z. B. Lebenslauf, Projekte) als frei verschiebbare Fenster auf einem virtuellen Desktop.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
+![Motion](https://img.shields.io/badge/Motion-black?style=flat)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Tech Stack
+
+| Bereich | Technologie |
+|---|---|
+| Framework | [Next.js](https://nextjs.org) (App Router) |
+| Sprache | TypeScript |
+| Styling | Tailwind CSS |
+| Animation | [Motion](https://motion.dev) |
+| Smooth Scroll | Lenis |
+
+## 📂 Projektstruktur
+
+```
+NuriOS/
+├── app/                        # Next.js App Router
+│   ├── apps/                   # App-spezifische Routen
+│   ├── home/
+│   │   ├── cv/                 # Route für die CV-App (eigenständiges Layout)
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   └── page.tsx
+│   ├── layout.tsx               # Root-Layout (Theme-Provider, Fonts, etc.)
+│   ├── page.tsx                 # Einstiegspunkt / Desktop
+│   ├── globals.css
+│   └── favicon.ico
+│
+├── components/
+│   ├── OS/                      # Kern der "Betriebssystem"-Logik
+│   │   ├── Desktop.tsx          # Desktop-Container, hält alle Apps
+│   │   ├── Frame.tsx            # Einzelnes App-Fenster (Drag, Scroll, Maximieren, Schließen)
+│   │   ├── App.tsx              # Desktop-Icon zum Öffnen einer App
+│   │   ├── Dock.tsx             # Dock/Taskleiste
+│   │   ├── Island.tsx           # Dynamic-Island-artiges UI-Element
+│   │   ├── FullscreenBar.tsx    # Menüleiste im Vollbild-/Maximiert-Modus
+│   │   └── Wallpaper.tsx        # Theme-abhängiges Hintergrundbild
+│   │
+│   ├── APP/                     # Inhalte der einzelnen Apps
+│   │   ├── CVApp.tsx            # Lebenslauf-App
+│   │   ├── NukeApp.tsx          # NuKe Digital Vorstellung
+│   │   └── NuriGPTApp.tsx       # NuriGPT-App
+│   │
+│   ├── ui/                      # Wiederverwendbare UI-/Icon-Komponenten - lucide-animated
+│   │   ├── battery.tsx
+│   │   ├── github.tsx
+│   │   ├── instagram.tsx
+│   │   ├── linkedin.tsx
+│   │   ├── send.tsx
+│   │   └── x.tsx
+│   │
+│   ├── Cursor.tsx                # Custom Cursor
+│   ├── LenisProvider.tsx         # Smooth-Scroll-Provider
+│   ├── ParallaxText.tsx          # Laufschrift-/Parallax-Textkomponente
+│   └── WindowHook.tsx            # Hook für Fenstergrößen/-status
+│
+├── lib/
+│   └── utils.ts                  # Hilfsfunktionen
+│
+├── public/                       # Statische Assets
+│   ├── appicons/                 # App-Icons für den Desktop
+│   ├── wallpaper-dark.jpg
+│   ├── wallpaper-light.jpg
+│   └── ...
+│
+├── components.json                # shadcn/ui-Konfiguration
+├── next.config.ts
+├── tsconfig.json
+└── package.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Voraussetzung: Node.js (empfohlen: aktuelle LTS-Version)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Repository klonen
+git clone https://github.com/NuriYildirim/NuriOS.git
+cd NuriOS
 
-## Learn More
+# Abhängigkeiten installieren
+npm install
 
-To learn more about Next.js, take a look at the following resources:
+# Entwicklungsserver starten
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Anschließend [http://localhost:3000](http://localhost:3000) im Browser öffnen.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 Lizenz
 
-## Deploy on Vercel
+Dieses Repository ist öffentlich einsehbar, aber **nicht zur Wiederverwendung freigegeben**. Siehe [LICENSE](./LICENSE) für Details.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👤 Kontakt
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Nuri Yildirim**
+Co-Founder [NuKe Digital](#) · Computer Science, TU Hamburg
